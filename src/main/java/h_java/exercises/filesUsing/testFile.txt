@@ -1,0 +1,11 @@
+click on: File > New > File > add the file in place + give name.type...
+Now we will work on it...
+
+This is my testFile.txt
+-----------------------
+
+Welcome to Automation -
+Student: Elad Luz
+
+Enjoy...
+--------

@@ -1,0 +1,10 @@
+================
+ GIT Repository
+----------------
+AutomationPractice
+Automation Practice INFO regarding: Java, Selenium, TestNG, Allure, Maven etc...
+
+
+
+___________
+--  END  --

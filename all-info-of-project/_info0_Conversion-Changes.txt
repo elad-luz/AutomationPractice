@@ -1,0 +1,39 @@
+==============
+ General INFO 
+--------------
+
+Create an automation framework for one of the next sites:
+you can take  ->  https://www.temp.com/
+
+• Before you start your automation you must write STD in excel or in a test case management (test title, step description, expected result...)
+• Use TestNG annotations (@BeforeClass, @Test, @AfterClass…) to write your tests (we do not use the main class anymore:))
+• Use assertions to decide if your tests passed/failed
+• It is recommended to use DataProvider option in your tests.
+• Create testng.xml and run all classes together (see results in the TestNG Reports)
+• It is Recommended to add Maven + Allure + Git.
+ 
+Tips:
+-› Improve your code by using PageFactory and @FindBy annotation - if you didn’t already do it
+-› Do not forget to use BasePage, BaseTest
+-› Use the code we used in the class for help
+-› Use the page object concept to create a page for each page and add: 
+-› WebElements
+-› Functions to support your tests scenario. 
+-› Functions for validation
+===========================
+
+
+Converting to Maven:
+--------------------
+-> in this case <project> is: 'AutomationPractice':
+After Convert the project to Maven you need to change locations in code of the followings:
+1.	in class:  ConfPropertiesUtil  -of-  package:  /<project>/src/test/java/tempSite.utilities  --> change to tempSite (as needed)
+	change path to: FileInputStream("./src/test/resources/tempSite/configuration.properties"))
+2.	in class:  BaseTest  -of-  package:  /<project>/src/test/java/tempSite.testcases
+	change path to: FileUtils.copyFile(srcFile, new File("./test-screenshots/" ...    ---> Needed only once !
+3.	in class:  S01_LoginTests  -of-  package:  /<project>/src/test/java/tempSite.testcases  --> change to tempSite (as needed)
+	change path to: excelPath = System.getProperty("user.dir") + "/src/test/resources/tempSite/inputTestData.xlsx";
+4.	Make sure <project>\testng.xml is pointing to proper PROJECT !!!
+5.	Make sure <project>\pom.xml is pointing to proper PROJECT in <artifactId> & <name> etc.
+___________
+--  END  --

@@ -1,0 +1,250 @@
+=========================
+ Page Object Model (POM) --> https://www.guru99.com/selenium-tutorial.html - if you need more about: Selenium !
+-------------------------
+	POM is a design pattern, used in test automation that creates Object Repository for web UI elements.
+	Each logical Web-Page (or UI-component) will get its own Page class that contains:
+	- Elements found.byLocator 
+	- Operation Methods done on those Elements
+	- Verification Methods (for success\failure) -> To be used later-on by the Test performed in relevant Test class !
+	Selenium operations themselves would be wrapped in a BasePage class (which'll be the parent of all page classes) !
+	There would be 2 different packages - one to hold Pages (BasePage + PageObjects), the other for Testing each Page!
+	 PackageA -> company.module.pageobjects (locating elements and wrapping them under functionality methods)
+	 	BasePage wrapping Selenium operations methods, to be used by all the classes (which would inherit it)
+	 	Pages classes - each will have distinguished name, that uniquely identify it in system, and will contain
+	 	 - declare & init the elements on page (using locators) - we can easily add-to as we go along, as needed
+	 	 - exposed action methods (wrapping & making use of the elements as needed), that would be used in tests
+	 	 - exposed validation methods that would be used in tests - to assist with verification if parts passing
+	 	 note that each page will need a variable to allow working: WebDriver driver; - which would be inherited
+	 PackageB -> company.module.tests (using a functional operations of page-objects, to generate test-cases)
+	 	BaseTest wrapping TestNG methods, to be used by all the classes (which would inherit it)
+	 	Test classes - each will contain:
+	 	 - exposed focused-scenarios mimicking functional-test cases scripts
+
+--> NOTE that, we will be using everything learned in Java (super, child, main & methods with vars, loops, conditions) 
+--> NOTE that, later-on I will refer to Packages page-objects & test-cases as POs & TCc
+	-----------------------------------------------------------------------------------
+	
+	Order of action we would do:
+	1.	understand what is being tested, and what is needed to be implemented for that test-cases scenarios
+	2.	copy the basic 'BasePage' (attached class) to PackageA (POs) -> and add capabilities if needed to !
+	3.	add Pages witch find elements properly & implement methods operations on them, as needed by Tests !
+		note that you got to understand which input each method requires from test. and what is its output.
+		each extends BasePage and have a constructor that initializes the properties of super = driver etc.
+	4.	can add Hierarchy: implement 'Common' abstract-layer, extends BasePage & acts as super to PageClass
+		there can be some Common-Elements & Page should extend a Common only if fits (otherwise, BasePage)!
+	5.	add Tests witch pass driver to each page & make use of its' methods to follow relevant Test Scripts
+	6.	afterwards, we'll add TestNG capabilities + BaseTest & Assertion of TestCase methods in TestClasses
+	______________________________________________________________
+	- https://www.toolsqa.com/selenium-webdriver/page-object-model
+	- https://www.selenium.dev/documentation/test_practices/encouraged/page_object_models
+	- https://www.guru99.com/page-object-model-pom-page-factory-in-selenium-ultimate-guide.html
+	
+	Advantages
+	The advantage of the model is that it reduces code duplication and improves test maintenance => Keep it SIMPLE !!!
+	Under this model, for each web page in the application, there should be a corresponding Page Class.
+	This Page class will identify the WebElements of that web page -and also contains-
+	Page methods which perform operations on the WebElements. Name of methods should represent the task they perform -
+	e.g if a loader is waiting for the payment Screen to appear, POM method name can be waitForPaymentScreenDisplay().
+	- Makes code maintainable -
+		Since the test classes are separate from the classes containing the web elements,
+	  	updating the code is very easy (if any web element updates, or a new one adds).
+	- Makes code reusable -
+		For multiple tests using same web elements, no need to code for same element in every test.
+		We write once (in Page) and use many times (in Test),
+	 	And placing it in a separate page class makes it reusable by making it accessible by any test script.
+	- Makes code readable (and more easy to write) -
+		When writing, we locate the elements needed -and- wrap a bundle under an Operation Method, with relevant Name,
+		That makes it easy to write & Others can also easily read through the project and test scripts...
+	- clean separation between the test code and page-specific code, such as locators, their use and layout.
+	- single repository for the services or operations the page offers rather than scattered throughout the tests.
+	
+	Summary 
+	The public methods represent the services that the page offers
+	Try not to expose the internals of the page
+	Generally don’t make assertions
+	Methods return other PageObjects
+	Need not represent an entire page
+	Different results for the same action are modelled as different methods
+ 	
+ 	Assertions in Page Objects 
+	Page objects themselves should never make verifications or assertions.
+	This is part of your test and should always be within the test’s code, never in an page object.
+	The page object will contain the representation of the page, and the services the page provides via methods.
+	but no code related to what is being tested should be within the page object.
+	There is one, single, verification which can, and should, be within the page object -
+	and that is to verify that the page, and possibly critical elements on the page, were loaded correctly.
+	This verification should be done while instantiating the page object.
+	For examples, to check that the expected page is available and ready for requests from the test...
+	
+	Page Component Objects
+	A page object does not necessarily need to represent all the parts of a page itself.
+	The same principles used for page objects can be used to create “Page Component Objects” -
+	that represent discrete chunks of the page and can be included in page objects.
+	These component objects can provide references to the elements inside those discrete chunks,
+	and methods to leverage the functionality provided by them.
+	You can even nest component objects inside other component objects for more complex pages.
+	If a page in the AUT has multiple components, or common components used throughout the site (e.g. navigation bar),
+	then it may improve maintainability and reduce code duplication.
+ 	______________
+ 	Example below:
+ 	How to define Page classes?
+	We will be working with the different pages first.
+	We will store the web elements present on each page in the corresponding java class.
+
+	HomePage.java
+	The home page of the dummy website looks like below,
+	and the highlighted element is the one that we store in our HomePage.java class.
+ 	Create a java class for Home Page.
+ 	This class will contain web elements present on Home Page like the Login button
+	and the operations performed on these elements.
+//  ----------
+package pages;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
+public class HomePage {
+
+	WebDriver driver;
+	
+	//Constructor that will be automatically called as soon as the object of the class is created
+	public HomePage(WebDriver driver) {
+		this.driver=driver;
+	}
+	
+	//Locator for login button
+	By LoginBtn = By.id("login");
+	
+	//Method to click login button
+	public void clickLogin() {
+		driver.findElement(LoginBtn).click();
+	}
+}
+//  --- END ---
+ 	How to define Test classes?
+	After creating the required classes for the different pages,
+	we will now create a test class with execution steps.
+	These steps would reference the object repository created for different page elements.
+	Let us quickly have a look at the code and then understand it step-by-step.
+//  -------------- 	
+package testCases;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import pages.Dashboard;
+import pages.HomePage;  // <-- This one is given in the example above !!!
+import pages.LoginPage;
+
+public class Login_TC1 {
+	
+	public static void main(String[] args) throws InterruptedException {
+		
+		System.setProperty("webdriver.chrome.driver", "---Exact path to chromedriver.exe---");
+		WebDriver driver = new ChromeDriver();
+		driver.get("https://www.demoqa.com/books");
+		
+		//Creating object of home page  // <-- This one is relevant to the example above !!!
+		HomePage home = new HomePage(driver);
+		
+		//Creating object of Login page
+		LoginPage login = new LoginPage(driver);
+		
+		//Creating object of Dashboard
+		Dashboard dashboard = new Dashboard(driver);
+		
+		//Click on Login button  // <-- This one is relevant to the example above !!!
+		home.clickLogin();
+		
+		//Enter username & password
+		login.enterUsername("---Your Username---");
+		login.enterPassword("---Your Password---");
+		
+		//Click on login button
+		login.clickLogin();
+		Thread.sleep(3000);
+		
+		
+		//Capture the page heading and print on console
+		System.out.println("The page heading is --- " +dashboard.getHeading());
+		
+		//Click on Logout button
+		dashboard.clickLogout();
+
+               //Close browser instance
+               driver.quit();
+	}
+}
+ 	
+=======================
+ Another Example below
+-----------------------
+public class LoginPage {
+    private final WebDriver driver;
+
+    public LoginPage(WebDriver driver) {
+        this.driver = driver;
+
+        // Check that we're on the right page.
+        if (!"Login".equals(driver.getTitle())) {
+            // Alternatively, we could navigate to the login page, perhaps logging out first
+            throw new IllegalStateException("This is not the login page");
+        }
+    }
+
+    // The login page contains several HTML elements that will be represented as WebElements.
+    // The locators for these elements should only be defined once.
+        By usernameLocator = By.id("username");
+        By passwordLocator = By.id("passwd");
+        By loginButtonLocator = By.id("login");
+
+    // The login page allows the user to type their username into the username field
+    public LoginPage typeUsername(String username) {
+        // This is the only place that "knows" how to enter a username
+        driver.findElement(usernameLocator).sendKeys(username);
+
+        // Return the current page object as this action doesn't navigate to a page represented by another PageObject
+        return this;	
+    }
+
+    // The login page allows the user to type their password into the password field
+    public LoginPage typePassword(String password) {
+        // This is the only place that "knows" how to enter a password
+        driver.findElement(passwordLocator).sendKeys(password);
+
+        // Return the current page object as this action doesn't navigate to a page represented by another PageObject
+        return this;	
+    }
+
+    // The login page allows the user to submit the login form
+    public HomePage submitLogin() {
+        // This is the only place that submits the login form and expects the destination to be the home page.
+        // A separate method should be created for the instance of clicking login whilst expecting a login failure. 
+        driver.findElement(loginButtonLocator).submit();
+
+        // Return a new page object representing the destination. Should the login page ever
+        // go somewhere else (for example, a legal disclaimer) then changing the method signature
+        // for this method will mean that all tests that rely on this behavior won't compile.
+        return new HomePage(driver);	
+    }
+
+    // The login page allows the user to submit the login form knowing that an invalid username and / or password were entered
+    public LoginPage submitLoginExpectingFailure() {
+        // This is the only place that submits the login form and expects the destination to be the login page due to login failure.
+        driver.findElement(loginButtonLocator).submit();
+
+        // Return a new page object representing the destination. Should the user ever be navigated to the home page after submitting a login with credentials 
+        // expected to fail login, the script will fail when it attempts to instantiate the LoginPage PageObject.
+        return new LoginPage(driver);	
+    }
+
+    // Conceptually, the login page offers the user the service of being able to "log into"
+    // the application using a user name and password. 
+    public HomePage loginAs(String username, String password) {
+        // The PageObject methods that enter username, password & submit login have already defined and should not be repeated here.
+        typeUsername(username);
+        typePassword(password);
+        return submitLogin();
+    }
+}
+___________
+--  END  --

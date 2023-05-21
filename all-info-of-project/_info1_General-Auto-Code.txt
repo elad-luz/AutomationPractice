@@ -1,0 +1,52 @@
+==============
+ General INFO 
+--------------
+
+
+
+
+============
+ Automation
+------------
+Selenium via Chrome, works with ChromeDriver only supports Chrome version xx
+		https://stackoverflow.com/questions/71350251/selenium-this-version-of-chromedriver-only-supports-chrome-version-xx
+		verify your Google Chrome version (help > about) & download + install relevant driver in path ( C:\automation\drivers)
+		use: https://chromedriver.chromium.org/downloads
+		OR:  https://www.selenium.dev/downloads/
+		
+import org.openqa.selenium.chrome.ChromeDriver; // for chrome browser
+//	import org.openqa.selenium.edge.EdgeDriver; // for edge browser
+System.setProperty("webdriver.chrome.driver", "C:\\automation\\drivers\\chromedriver.exe"); // for chrome browser
+//	System.setProperty("webdriver.edge.driver", "C:\\automation\\drivers\\msedgedriver.exe"); // for edge browser
+WebDriver driver = new ChromeDriver(); // WebDriver is an interface, ChromeDriver is the Implementation.
+//	WebDriver driver = new EdgeDriver();
+
+
+UPDATE Driver (if version not supported):
+-----------------------------------------
+IF you Failed on Response code 500 Message: session not created: This version of ChromeDriver only supports Chrome version :
+Note that the Browser was Updated & No longer Supported --> Do this:
+1.	Verify your Google Chrome version (help > about) 
+2.	Download zip & extract Driver to relevant path you use for drivers (C:\automation\drivers)
+	use: https://www.selenium.dev/downloads/
+	OR:  https://chromedriver.chromium.org/home -> Downloads
+	https://chromedriver.chromium.org/downloads
+		All versions available in Downloads
+		Take Latest stable release - if it's relevant to yours !
+3.
+
+WebDriverManager:....
+https://www.lambdatest.com/blog/webdrivermanager-in-selenium/
+
+
+
+
+===========
+ Code Tips 
+-----------
+Do...
+
+
+
+___________
+--  END  --

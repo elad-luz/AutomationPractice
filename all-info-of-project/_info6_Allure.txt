@@ -1,0 +1,165 @@
+================
+ Allure Reports
+----------------
+0. in this case <project> is 'AutomationPractice' (see next)!
+1. After Setting Allure in POM.xml -> Open that dir via CMD >	cd C:\Users\USER\eclipse-workspace\<project>
+2. Run the TestNG.xml (to issue the tests) via Maven -> CMD >	mvn clean test -DsuiteXmlFile=testng.xml
+2. To generate the Report -> issue via same location in CMD >	mvn allure:serve
+3. After Report opened -> close the script to exit, via CMD >	click Ctrl+C  -&-  Y  (to terminate batch job)
+4. to clean the command prompt issue: 							cls
+
+-------------------
+Allure Annotations:
+===================
+Allure Report defines four levels of severity of failures:
+@Severity(SeverityLevel.CRITICAL)
+Blocker: A blocker is a severe defect that blocks the application's functionality. The application can only proceed further with fixing the issue.
+Critical: A critical defect is a high-priority issue that can cause significant application functionality problems.
+Normal: A normal defect is a medium-priority issue that does not cause significant application functionality problems.
+Minor: A minor defect is a low-priority issue that does not affect the application's functionality but may cause some inconvenience or confusion for the end users.
+
+
+
+@Step Annotation -- To create a step:
+Create method with any visibility modifier (public, private, protected) with step logic and annotate it with @Step annotation. You can optionally specify step name in annotation attributes.
+Call this method inside test method.
+An example:
+@Test
+public void someTest() throws Exception {
+    //Some code...
+    stepLogic();
+    //Some more assertions...
+}
+
+@Step("This is step 1")
+private void step1Logic() {
+    // Step1 implementation
+} 
+
+@Step("This is step 2")
+private void step2Logic() {
+    // Step2 implementation
+}
+
+
+MORE  --->
+==========
+EXAMPLE 1:
+
+@Step("Login-attempt with Credentials in Text-fields: User='{0}' & Pass='{1}' -> Commit!") // 0 = first Argument -&- 1 = second Argument
+// OR Like this:   @Step("login with user: {username} and password: {password}")
+	public void login(String username, String password) { // needed username + password input (the test will go to set this method vars)
+		fillText(usernameField, username);
+		fillText(passwordField, password);
+		click(loginBtn);
+	}
+------------------------
+Allure Report will show:	
+Login-attempt with Credentials in Text-fields: User='ToFailAssert' & Pass='ScreenShot' -> Commit!                         [2 parameters]
+username	ToFailAssert
+password	ScreenShot
+
+==========
+EXAMPLE 2:
+
+You can also use parameters for the @Step annotation. For example, if the method accepts some variables:
+
+@Step("Get the maximum between {a} and {b}")
+public int max(int a, int b){
+    //implementation
+}
+
+==========
+EXAMPLE 3:
+
+If you need to use any object, you can override toString() method, or use needed parameters:
+
+public class User {
+     private String name;
+     private String password;
+     ...
+}
+@Step("Type {user.name} / {user.password}.")
+public void loginWith(User user) {
+     ...
+}
+
+=====================================================
+Allure Report Annotations to be integrated with JIRA:
+-----------------------------------------------------
+
+@Epic("Shopping Cart")
+@Feature("Add To Cart")
+@Story("As a User when I add item to Cart than cancel the item should be deleted")
+public void test() {
+  
+}
+
+
+===============================
+Allure Report Attachments Util:
+-------------------------------
+https://selenium.teachable.com/courses/562412/lectures/10321379
+https://selenium.teachable.com/courses/562412/lectures/10321389
+
+Create the Allure Report - Attachments Util: capture & Attach Text & Screenshots !
+
+package saucedemo.utilities; // Allure Report - Attachments Utils
+
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+
+import io.qameta.allure.Attachment;
+
+public class ReportAttachmentsUtil { // for Allure Attachments
+
+	// Add Text attachments
+	@Attachment(value = "{0}", type = "text/plain", fileExtension = ".txt")
+	public static String attachText(String message) {
+		return message;
+	}
+	
+	// Add Screenshot attachments (needs imports) **
+	@Attachment(value = "Page Screenshot", type = "image/png", fileExtension = ".png")
+	static byte[] attachScreenshot(WebDriver driver) {
+		return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+	}
+}
+---------------------------------------------------
+** NOTE: To use this you to also properly add to the BaseTest Class
+in the @BeforeClass
+setup(ITestContext testContext) {
+testContext.setAttribute("WebDriver", this.driver);
+---------------------------------------------------
+
+-> AND Add following attachment text in code of test (to print in Allure Report)
+ReportAttachmentsUtil.attachText("some text");
+
+// the message of Assert would be inserted as attachment to Allure Report (using relevant Util):
+// ReportUtil.attachText("Add here the text you want"); // needs import Util (in Project), for add text attachments to Allure !
+// Note the text can be anything from a comment to Exception -&- come to replace any out-print you wish to present in the log !
+
+-> AND -> You need to add Listener under .utilities;
+public class ListenersUtil extends TestListenerAdapter {
+	// using “ITestResult” interface for taking & attaching Screenshots to Report on Test-Failure (needs IMPORTS)
+	@Override
+	public void onTestFailure(ITestResult result) {
+		Object webDriverAttribute = result.getTestContext().getAttribute("WebDriver");
+		if (webDriverAttribute instanceof WebDriver) {
+			ReportAttachmentsUtil.attachScreenshot((WebDriver) webDriverAttribute);
+		}
+	}
+}
+
+-> AND Add the listener to testng.xml
+
+<suite name="Suite">
+	<listeners>
+		<listener class-name="saucedemo.utilities.ListenersUtil"></listener>
+	</listeners>
+
+
+
+___________
+--  END  --

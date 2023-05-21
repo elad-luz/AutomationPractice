@@ -1,0 +1,106 @@
+-------------
+ Elad Luz CV
+=============
+
+I'm Experienced Functional & Automation QA Engineer » Looking for a new job, with focus on Automation › https://www.linkedin.com/in/elad-luz/
+
+
+~~~~~~~~~~~~~~
+ About Myself
+~~~~~~~~~~~~~~
+
+Personal Note:
+To begin with, I know its a cliché  –  yet still,   I hope that this short & candid introduction, leaves a good impression about myself... 🙂
+
+› I'm a Professional Software QA, with over 16 years experience in Testing Client \ Server Applications.
+› Products I worked on, were deployed in varied Platforms with Complex Architectures (including GCP Cloud with micro-services).
+› System Data (used & tested) resided on several kind of Data-Bases (including both SQL & Non-SQL DBs).
+› During the past 2 years I've been writing UI Automation tests, using Selenium with Java.
+› I have Methodological & Technical Knowledge, an Eye for Details, System-wide perspective & Understanding of Business Logic.
+› I'm a Team-player, and worked as part of several Dev-Squads.  I know the value of Hard Work, Dedication & Passion for Quality.
+› I believe in a pro-active 'Get Things Done' approach, striving to make any Product meet the Best possible Quality.
+› I'm Reliable, Accountable, Motivated, Independent (needing minimal supervision) and always Meet Deadlines !
+› I'm looking for a new Position which will challenge my skills,  and mainly allow my Automation potential to continue growing.
+
+ 👉  Recommendations (from former directors managers & peers)  –  Available, and would be supplied upon request (with advance notice).
+
+
+My Skills & Knowlage:
+I possess many skills, but the following are those relevant for QA job
+
+› Automation Tests :  Write Tests and related Infra using Java + Selenium, TestNG, GIT, Maven, Jenkins & more
+› Manual Tests :  Functional, E2E, Web \ Mobile Apps, UI, API, Compatibility, Correctness, Security, Integrations
+› Tools :  JIRA, Quality Center, ClearQuest, Bugzilla -and- many other Tools (used during the process of testing)
+› Network :  Fiddler \ Wire Shark sniffers, Browser Developers tool. Protocols (as Tester) : HTTP & TCP/IP, Rest
+› Databases :  Relational Oracle, MS-SQL, Postgre, Vertica | Non-SQL Redis, Mongo, Aerospike, ElasticSearch
+› Operating Systems :  Windows, Linux
+› Languages :  Hebrew (mother tongue), English (as mother tongue – excellent written & spoken)
+
+
+~~~~~~~~~~~~~~~~~
+ Work Experience
+~~~~~~~~~~~~~~~~~
+
+› 06/2018 – 06/2022  |  Cybereason :   Functional & Automation QA Engineer
+--------------------------------------------------------------------------
+I Worked on Cyber-Security Defensive EDR-System (aimed to detect & prevent cyber-attack). Product deployed on GCP cloud, with Linux servers &
+Dockerized microservices, Configured using Consul service  &  Mongo DB,  and its Data stored in Aerospike & ElasticSearch.
+
+I performed Functional & Automation QA tasks, as part of the Data-infra & HUNT solution Dev-Squad, working in Agile Methodologies.
+
+ » Automation (using Selenium & Java): Automated the Functional E2E Sanity-suite Test-cases, for CI Nightly-run:
+	›  Implement & Automate E2E Test Cases of UI Functionality for Full Coverage, and add relevant Page elements to INFRA
+	›  Execute & Monitor Jenkins Nightly job (reporting to a Slack channel), and Run suite on demand, upon each Sanity Cycle
+
+ » Functional (working with JIRA): Performed all Manual QA tasks of the Hunt-Investigation UI solution:
+	›  Review Feature-Designs and Requirements (with stakeholders: Product, Data Architect, UX & Developers)
+	›  Design Test Plan with Functional E2E Test Cases (STP \ STD) for full Coverage of Spec docs (SRD \ SRS)
+	›  Execution of Sanity, Progression & Regression testing cycles
+	›  Bugs Analysis & Open issues found, Validate fixes & Conclude Results in Status Report (STR)
+	›  Deploy Environments (on Linux VMs), Configure (in Consul), integrate (with Docker microservices)
+	›  Knowledge Transfer to Train new employees, Wrote How-to Wikis on a shared location (Confluence)
+	
+ 👉  Recommendations (from former directors managers & peers)  –  Available, and would be supplied upon request (with advance notice).
+
+› 09/2012 – 12/2017  |  HPE  (former- hp mercury) :   Senior QA Engineer
+------------------------------------------------------------------------
+Worked on Monitoring Apps Product (deployed on Linux Servers with DBs: PostgreSQL Vertica & Radis), for Tracking & Measure User Experience on
+both Mobile & Web Applications (availability, performance, response-time & user behavior within application).
+
+I performed Functional QA (working with QC): Requirements Review, Plan & Execute Manual Tests, Analyze & Report Bugs (and more).
+Worked in Agile Lifecycle (scrum teams & sprints of bite-size features, quick to reach production).
+
+› 08/2008 – 08/2012  |  Comverse  (currently- xura) :   Manual QA Engineer
+--------------------------------------------------------------------------
+Worked on a Telecom Instant-Messages Product (deployed on Linux Servers & Oracle DB), for Managing Mobile IM systems.
+
+I performed Manual QA: Review Design, Write & Execute Tests, Report & Manage Bugs, Deploy Labs etc.
+Was part of a Task-force doing Acceptance Testing for products deployed at 3 Customers Sites in North-America (VzW, Rogers, AT&T).
+Worked in Waterfall Lifecycle (as part of QA team,  getting huge content per each delivery, with long time till features reach production).
+
+› 05/2006 – 07/2008  |  TripCart.com  (currently- obsolete) :   QA Tester
+-------------------------------------------------------------------------
+Worked on a Travel Planning website Product (deployed on Windows Server & MS-SQL DB) from its initial state.
+I Oversaw Quality (during development): Features Review, Write & Execute Tests (manual & performance-response-time), Manage Bugs.
+
+› 01/2005 – 04/2006  |  Ness  (on Tel Ha-Shomer hospital) :   Sys Admin & Technician
+------------------------------------------------------------------------------------
+Worked on a Hospital as Sys Admin & Technician for Computers & Network, Domain Management and Support Internal (on Site) Apps.
+
+
+~~~~~~~~~~~
+ Education
+~~~~~~~~~~~
+
+Technical & Academic qualifications (by graduation years)
+› 2023*	– Planned Automation course (*starting soon): Postman & RestAssured (API), Appium (Mobile), Dockers (at: automation.co.il)
+› 2022	– Advanced Automation course: GIT, Maven, Jenkins & Allure (at: automation.co.il)
+› 2018	– Automation course: Java, Selenium & TestNG (at: automation.co.il)
+› 2017	– Technological courses: QA Security, Big-Data Technologies, Linux
+› 2012	– Certified ISTQB diploma: Software Quality Assurance & Testing Methodologies
+› 2004	– Certified DBA course: Oracle & MS SQL -also- Microsoft MCP
+› 2001	– Master of Arts (MA degree) – in: Study of Contemporary Art (from: University of Liverpool)
+› 1997	– Teacher diploma (BA equivalent) – in: Fine Art & Art History (from: Beit Berl Art School)
+
+
+|--  END  --|-------------------------------------------------------------------------------------------------------------------------------|

@@ -1,0 +1,557 @@
+=================================================================
+-  Test Plan (line 15)  -&-  Tests Design (starts on line 145)  -
+-----------------------------------------------------------------
+
+Important Disclaimer:
+I did this Project mainly to expose my QA Automation capabilities, so I could present it (during Job interviews, as a show-case of my coding skills)!
+Although pages & test-cases are fairly simple, I sometimes took it up a notch & deliberately wrote complex code (to show all capabilities I possess).
+And Yes, I know I could have refined my code & simplify mainly the following Page-Classes: BasePage, Common, LoginPage & ProductsInventoryPage  -and-
+Even if more focused solutions could have been provided to each problem - I wanted to show the complexity on purpose!
+All info Regarding this Automation Project is outlined in This Document, for anyone who is interested to review it, to understand what I did & why...
+
+Note: My CV could also be found at: /SeleniumProject/project-info/myCV.txt  (or under https://www.linkedin.com/in/elad-luz)  --  Thanks in Advance 🙂
+____________________________________
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ TEST-PLAN (general info & context)  ->  Example is Relevant to Project made!
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-›	Introduction:
+	Main purpose of this Test-Plan is actually, to show I am able to Orchestrate an Automation Infrastructure & Tests Project on website.
+	Chosen website is saucedemo.com = a demo site (for automation course practice) which simulates a simple online commerce travel store.
+	The Goal of testing the website is to go over the most important functional features of typical usage and verify they work as design.
+	For each case, an automated script will run  -and-  asserts that requirements are fully met (as intended by the product designers)...
+	
+-›	Mission:
+	- Most Important Objective for me, is to show as many automation capabilities as possible,  So I can present it during Job interview.
+	  Again, although test-cases are simple - I (sometimes) deliberately wrote more complex code, just as show-case of coding abilities !
+	  For example: I sometimes 2 use different ways of achieving same goal, just to show I know how to use them both - it is deliberate !
+
+-›	Tested Product = Website URL:
+	- https://www.saucedemo.com
+
+-›	Areas Covered:
+	- Basic User Functionalities throughout main web-pages
+		~ Sanity Level of GUI Functionality at High Level!
+		~ Focus on Main business flows of User involved processes:
+			› input-text fields\ output-message fields,  frequently used\ encountered by customers
+			› part of flows identified as Main Business (navigate, sort, add, remove, submit) etc.
+			› special focus on covering a full e2e flow (by covering all parts above individually)
+
+-›	Out of Scope:
+	- Non-Functional aspects (such as: api, security, usability, compatibility, performance, integrations etc.)
+
+-›	Tested Language:
+	- English only !
+	  Note: Localization & Internationalization will not be tested!
+
+-›	Automation Framework & Tools:
+	- Selenium \ Java with TestNG & Maven
+	- Jenkins pipeline job to manage Run!
+
+-›	Environments for Test
+	- OS Version:
+	  	~ Windows 10
+	- Web Browser used for Testing:
+	  	~ Chrome version 109
+	- Mobile:
+	  	~ NONE - Currently not supported!
+
+-›	Test to be Performed:
+	- Smoke Test (of Login)
+	- Functional & UI Testing
+
+-›	Test Deliverables:
+	- Test-Cases Checklist (below)
+	- Run and Failure Reports
+	  Note: No Bugs would be opened!
+		
+-›	Entry Criteria & Test Dependencies:
+	- Website is online, accessible & fully operational
+	- Basic Manual Testing Ran & Passed
+	- No Critical Issues found as known-Limitations
+	- Automation environment set-up & is available
+
+-›	Exit Criteria:
+	- All Scoped Automated Scripts Completed & Passed!
+	- All Result Reports are Gathered
+	  Note: Bugs found in App, will not be a factor (so NO need for any Defects-Resolving mitigations)
+	
+-›	Timeline Strategy (for 7 working days):
+	- Expected Test Preparation estimations
+		~ Analysis = 4.5 h'
+		~ Simple Test Plan = 4.5 h'
+		~ Automating (Infra Preparation & Tests Scripting) = 4 d'
+	- Expected Test Execution estimations
+		~ Execute Test entire pipeline on demand = 5 h'
+		~ Reports Analysis & Formulation = 4 h'
+		~ Present Results (found problems, fixed issues, how confident we are with product) 
+
+-›	People:
+	- QA Engineers
+		~ Elad Luz (yours truly as both: manual & automation)🙂
+
+-›	Risks:
+	- Lack of any actual RISK - this is a DemoTest on a DemoApp
+	- Risk for ME - Wasting my time if I'm Not getting a Job ;)
+	
+-›	Business Value:
+	- Getting a Job as Automation engineer in a Great Company !
+
+
+_____________________________________________________________________________________________________________________________________________________
+=====================================================================================================================================================
+
+ Formatting Note regarding TestCases Design
+--------------------------------------------
+
+Usually, display of TestCases is presented for convenience in a table format (but its not easy to maintain in textual format - so I will not use it).
+Below, for EXAMPLE only (and Not for being Used in this Test-Document) -- TestCases in Table format:
+
+|===================================================================================================================================================|
+| Prerequisites: Only Supported browsers are being used by Automation!																				|
+| Preconditions: A valid User must already be registered with proper name (standard_user) & password (secret_sauce) -and- IS Logged-out at start	|
+|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|
+| Part 1. Test-Scope: User Login Functionalities  ( where: Login Page  -&-  what: Functionalities of User's Login Process & Actions & Feedbacks )	|
+|===================================================================================================================================================|
+| TCid | TestCase- Description | TestSteps- Scenario	   | TestData- Input		  | › Validate Actions made...	| » Assert on Expected Results	|
+|======|=======================|===========================|==========================|=============================|===============================|
+| TC01 | Login Page Elements - | 1. Open Browser -AND-	   | Browser: chrome (v.109)  | › Navigated to the Web page | » UI show proper Elements:	|
+|      | Exists on UI		   |    Navigate to URL  -> to | URL: same throughout all | App was Launched properly ! | Username & Password fields	|
+|	   | [smoke-Test]		   |    Launch web-application | http://www.saucedemo.com |								| Login btn & Credentials Lists |
+|------|-----------------------|---------------------------|--------------------------|-----------------------------|-------------------------------|
+| TC02 | Login Auth. Failed	   | 1. Browse to URL		   | 						  | › Web page opened			| » Login failed, NO Redirect	|
+|	   | on Mandatory field	   | 2. Do NOT fill a User	   | Username:	 (none)	  	  | 							| UI show ERROR message:		|
+| 	   | Missing input		   | 3. Enter any Password	   | Password: secret_sauce	  | 							| "Missing mandatory field -	|
+| 	   | [negative-Test]	   | 4. Click Login button	   |						  |  							|  Enter Username!"				|
+|------|-----------------------|---------------------------|--------------------------|-----------------------------|-------------------------------|
+| TC03 | Login Auth. Failed	   | 1. Browse to URL		   | 						  | › Web page opened			| » Login failed, NO Redirect	|
+| 	   | on invalid credential | 2. Enter invalid Username | Username: standard		  | 							| UI show ERROR message:		|
+| 	   | User is not valid	   | 3. Enter any Password	   | Password: secret_sauce	  | 							| "Invalid Username -			|
+| 	   | [negative-Test]	   | 4. Click Login button	   |						  |  							|  User doesn’t exist!"			|
+|------|-----------------------|---------------------------|--------------------------|-----------------------------|-------------------------------|
+| TC04 | Login Auth. Failed	   | 1. Browse to URL		   | 						  | › Web page opened			| » Login failed, NO Redirect	|
+| 	   | on invalid credential | 2. Enter valid Username   | Username: standard_user  | 							| UI show ERROR message:		|
+| 	   | Password is incorrect | 3. Enter invalid Password | Password: secret		  | 							| "Incorrect credential -		|
+| 	   | [negative-Test]	   | 4. Click Login button	   |						  | 							|  Wrong User's Password"		|
+|------|-----------------------|---------------------------|--------------------------|-----------------------------|-------------------------------|
+| TC05 | Login Auth. Succeeded | 1. Browse to URL		   | 						  | › Web page opened			| » Login Auth. Succeeds -		|
+| 	   | for valid credentials | 2. Enter valid Username   | Username: standard_user  | Filled Username in field	| Redirection Into App page		|
+| 	   | of User & Password	   | 2. Enter valid Password   | Password: secret_sauce   | Filled Password as ****		| UI display indication, that	|
+| 	   | [positive-Test]	   | 4. Click Login \ Submit   | 						  | Indication of Action Made ! | User Logged-in as Intended!	|
+|======|=======================|===========================|==========================|=============================|===============================|
+
+
+________________________________
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ TEST DESIGN (cases scenarios):
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+NOTE:
+	- Project is using 'Page Object Model' design pattern, that creates an object repository for storing all web elements (and wraps main functions).
+	- Tests are gathered under Sections (according to given Scope Logic) - Each Section Fully Tests a UI Specific Page (or Component) Functionality !
+	- Each Section (below), would be represented in Project as a TestClass, and each Tested Scenario would be written within it as a TestCase Method.
+	- IF any step is marked as 0 - its being regarded as a "Precondition" to what-ever comes afterwards !!!
+	- For My Project Naming Conventions I chose to follow these Guide-Lines:
+	  -[Class]	StartingPageTest_Scope (scope is optional - add if needed)
+	   example:	LoginTests -OR- LoginTests_PageElements (to check only UI elements existence) -OR- LoginTests_LoginFunctions (checks functionalities)
+	  -[Method] tc##_MainScenario_ExpectedResult (scenario is optional - add if needed) -> NOTE: all tests starts with tc##_ for easy linkage to test
+	   example: tc00_LoginElementsExist (no scenario, just validations) -OR- tc01_MissingyMandatoryUser_LoginFailure (checking a specific error) -OR-
+	   			Instead of checking each error: tc02_InvalidUsername_LoginFailure -OR- tc03_InvalidPassword_LoginFailure etc. we can make use of DDT:
+				tc01_LoginFailures (as a general name, if under this one case I'll test all kind of failures using varied data taken from a resource)
+				tc02_LoginSuccess (general name for positive test) -OR- tc02_ValidCredentials_loginSuccess (if we want to add in name the scenario) !
+	- Valid Credentials of a Registered User with proper Password = Username: standard_user  Password: secret_sauce (data taken from properties file)
+	  BUT the Invalid Credentials of Usernames \ Passwords,  would be taken from a testData.xlsx file (if stated as such in a DDT = data driven test)
+	- BaseTest (as super to all Test-Classes), defines several annotations of TestNG to be implemented,  Thus we need to run cases in specific order:
+		@BeforeClass, for all to-be performed on Chrome in Full-screen & Starting in Entrance URL page (from .properties = https://www.saucedemo.com)
+	   	@AfterMethod, that upon each TestCase ends a check is made & if found failure a screenshot is taken & kept (in /SeleniumProject/screen-shots)
+	- Order of TestCases Run within any TestClass, is important (because each starts at the point the previous-one), So I am using priority ordering!
+	- During Tests' Run, I am making use of Highlighting capability (defined in BasePage), to Point-out each place on screen, the Test is working on.
+_____________________________________________________________________________________________________________________________________________________
+--------------
+  Section 01
+==============
+› Test-scope: Entrance-Login Page -> UI elements -&- Functionalities of User's Login Process Actions (and feedbacks)
+› Class Name: S01_LoginTests (status: Automated) [note: the 'S01' stands for: 'Section 01' of the test-plan]
+Note: ONLY in this class, I would use the Allure Jira integration annotations: @Epic("x"), @Feature("y"), @Story("z") - Just to show the possibility!
+_______
+ TC.00:
+		Method Name: tc00_LoginElementsExist  (priority=0)  [note: 'tc#' is: 'TestCase id' within Section! -> 0  is always precondition to Following]
+		Description: Smoke-Test = Checking that Login-page is Accessible  -and-  Contain all the expected UI-elements  (not functional)
+Scenario:
+	0.	Pre-requisites & Context: Browser closed!  [note: step 0. as mentioned, 0   is always precondition to Following - in this case, steps...]
+	1.	Launch Browser & Navigate to URL...  ->  NOTE: First part of all following tests, derives form BaseTest class - @BeforeClass annotation !
+	2.	Validate App Launched properly -> Page opened and Display the following UI Elements:
+		- SwagLabs Logo
+		- Username field (textbox empty)
+		- Password field (textbox empty)
+		- Error Output field (empty - no massage -&- no close error button)
+		- Login button
+		- 2 Credentials Lists titled:  "Accepted usernames are:"  -&-  "Password for all users:" (check title Text correctness, not the list content)
+_______
+ TC.01:
+		Method Name: tc01_LoginFailures  (priority=1)  [note: priority=1 is always correlative to test id = tc01 -&- will set the running order)
+		Description: Failed-Logins = Check Cases of Authentication with Invalid & Missing Credentials -- Validating the displayed Error message,
+		Test is making use of a Matrix data from excel (to check various cases)...
+Scenario:
+	0.	Pre-requisites & Context (of each case): Continue from previous TestCase end-point  (URL: Entrance page + Refreshed  &  State: NOT Logged-IN)
+	1.	Fill-in Username* textbox & Password* textbox for Covering the Failure Matrix Condition & Error Messages*
+	  *	each test-case uses relevant data taken from excel file (see:./src/saucedemo/resources/inputTestData.xlsx - tab: loginFailure)
+		› Missing Username, Missing Password & Error message (required username...)
+		› Missing Username, Any Password & Error message (required username...)
+		› Any Username, Missing Password & Error message (required password...)
+		› Invalid-User, Invalid-Password & Error message (username do not match any...)
+		› LockedOut-User, Valid-Password & Error message (sorry, user has been locked out...)
+		» Invalid-User, Invalid-Password & Error message (this Error will NOT Resemble Expected! Intended to Fail on Mismatch, and take ScreenShot)
+	2.	Click the Login button	
+	3.	Validate Each-Test-case Produced Intended Result (Assert actual as expected) -> Relevant Error Message is displayed (also taken from excel)
+_______
+ TC.02:
+		Method Name: tc02_LoginFailureCloseError_MsgRemoved  (priority=2)  [note: priority= will no longer be mentioned here - No Need for that]...
+		Description: Functional-Test = Upon Failed Login Message, Click Close Error x button, will Remove the Message
+Scenario:
+	0.	Pre-requisites & Context: Continue from previous TestCase end-point  (URL: Entrance page + Refreshed  &  State: NOT Logged-IN)
+	1.	Verify the place for Errors to be shown at, is Empty !
+	2.	Click the Login button (without filling-in Username & Password)
+	3.	Verify the place for Errors to be shown at, have a Message & Button 'x' to close it
+	4.	Click the Close Error button
+	5.	Verify the place for Errors to be shown at, is Empty once-again (error was removed!)
+_______
+ TC.03:
+		Method Name: tc03_LoginSuccess
+		Description: Success-Login = Authentication with Valid Credentials, of a Registered* User with Proper Password, Logs the user into properly -
+					 Note: *there's already a Registered User with Login Credentials into System  (his Credentials are taken from a properties file)!
+Scenario:
+	0.	Pre-requisites & Context: Continue from previous TestCase end-point  (URL: Entrance page + Refreshed  &  State: NOT Logged-IN)
+	1.	Enter valid Username* in Username textbox (fill-in a registered User) -> Note: will NOT verify filled Username text appears in field
+	2.	Enter valid Password* in Password textbox (fill-in relevant Password) -> Note: will NOT verify filled Password chars appears as dots
+	  *	Data filled in fields is taken from properties file (see:./src/saucedemo/resources/configuration.properties)
+	3.	Click the Login button, and submit the credentials for Authentication (there's NO Indication of Action-Made)
+	4.	Validate Test Produced Intended Results (Assert actual as expected) -> User Logged-in to App Successfully =
+		Indication: Redirection Into App's Products-Inventory page!
+_____________________________________________________________________________________________________________________
+--------------
+  Section 02
+==============
+› Test-scope: Products-Inventory Page -> UI elements -&- Functionalities of Page Actions
+› Class Name: S02_ProductsInventoryTests (status: NOT automated)
+_______
+ TC.00:
+		Method Name: tc00_ProductsInventory_ElementsExist
+		Description: Smoke-Test = Products-Inventory page is Accessible & Contains the expected UI-elements
+Scenario:
+	0.	Pre-requisites & Context: Launch Browser -&- Navigate to App's URL (done during @BeforeClass)
+	1.	Perform Successful Login with Valid User -&- Validate Test Start-conditions met --> User Redirected to Products-Inventory page !
+	2.	Validate Page opened and Display the following UI Elements:
+		- SwagLabs Logo
+		- Menu button
+		- shopping cart button, empty (with no number indicating of items added)
+		- Page title: "PRODUCTS" (check its visible & also that text is correct)
+		- Sort container visible & the default selection is: "NAME (A to Z)"
+		- Inventory List of 6 Products (not the list content or sorting order!), each item has:
+			~ name
+			~ text
+			~ price
+			~ add-remove btn (& because non was added yet, the Remove btn should be visible)
+			~ picture image-src (note that the picture will not to be validated at this point)
+_______
+ TC.01:
+		Method Name: tc01_ProductsInventory_AddProductToEmptyCart   -> button changed to Remove & Product added in cart component (+ page?)
+		Description: X
+Scenario:
+	0.	Pre-requisites & Context: Continue from previous TestCase end-point  (URL: Entrance page + Refreshed  &  State: NOT Logged-IN)
+	1.	x
+	2.	x
+_______
+ TC.02:
+		Method Name: tc02_ProductsInventory_AddAnotherProductToCart   -> button changed to Remove & Product added in cart component (+ page?)
+		Description: X
+Scenario:
+	0.	x
+	1.	x
+_______
+ TC.03:
+		Method Name: tc03_ProductsInventory_RemoveOneProductFromCart   -> button changed to Add* & Product removed from cart component (+ page?)
+		Description: X
+Scenario:
+	0.	x
+	1.	x
+_______
+ TC.04:
+		Method Name: tc04_ProductsInventory_RemoveLastProductFromCart   -> button changed to Add* & cart component (+ page?) is now Empty!
+		Description: X
+Scenario:
+	0.	x
+	1.	x
+_______
+ TC.05:
+		Method Name: tc05_ProductsInventory_OpenSelectedProductDetails   -> Click on Item to open its details...
+		Description: X
+Scenario:
+	0.	x
+	1.	x
+_______
+ TC.06:
+		Method Name: tc06_ProductsInventory_Sort...
+		Description: X
+Scenario:
+	0.	x
+	1.	x
+_______
+ TC.07:
+		Method Name: tc07_ProductsInventory_Sort...
+		Description: X
+Scenario:
+	0.	x
+	1.	x
+_______
+ TC.08:
+		Method Name: tc08_ProductsInventory_Sort...
+		Description: X
+Scenario:
+	0.	x
+	1.	x
+_______
+ TC.09:
+		Method Name: tc09_ProductsInventory_Sort...
+		Description: X
+Scenario:
+	0.	x
+	1.	x
+_______
+ TC.10:
+		Method Name: tc10_ProductsInventory_X [-> Negative Test of UI...
+		Description: X
+Scenario:
+	0.	x
+	1.	Logout (from menu)
+	2.	ReTest Case 00 - Negative case - Test will Fail (on corrupted UI):
+		- login with 'problem_user' + 'secret_sauce'
+		- you will get UI problem & should fail on re-Validating as the above !!!
+_____________________________________________________________________________________________________________________
+--------------
+  Section 03
+==============
+› Test-scope: Selected-Product-Info (inventory-item) Page -> UI elements -&- Functionalities of Page Actions
+› Class Name: S03_SelectedProductInfoTests (status: NOT automated)
+_______
+ TC.00:
+		Method Name: tc00_ProductItemInfo_ElementsExist
+		Description: Smoke-Test = Product-Item-Info page is Accessible & Contains the expected UI-elements
+Scenario:
+	0.	Pre-requisites & Context: x
+	1.	x
+	2.	x
+_____________________________________________________________________________________________________________________
+--------------
+  Section 04
+==============
+› Test-scope: Shopping-Cart Page -> UI elements -&- Functionalities of Page Actions
+› Class Name: S04_ShoppingCartTests (status: NOT automated)
+_______
+ TC.00:
+		Method Name: tc00_ShoppingCart_ElementsExist
+		Description: Smoke-Test = ShoppingCart page is Accessible & Contains the expected UI-elements
+Scenario:
+	0.	Pre-requisites & Context: x
+	1.	x
+	2.	x
+_____________________________________________________________________________________________________________________
+--------------
+  Section 05
+==============
+› Test-scope: Your-Checkout-Info Page -> UI elements -&- Functionalities of Page Actions
+› Class Name: S05_CheckoutInfoTests (status: NOT automated)
+_______
+ TC.00:
+		Method Name: tc00_CheckoutInfo_ElementsExist
+		Description: Smoke-Test = CheckoutInfo page is Accessible & Contains the expected UI-elements
+Scenario:
+	0.	Pre-requisites & Context: x
+	1.	x
+	2.	x
+_____________________________________________________________________________________________________________________
+--------------
+  Section 06
+==============
+› Test-scope: Your-Checkout-Overview Page -> UI elements -&- Functionalities of Page Actions
+› Class Name: S06_CheckoutOverviewTests (status: NOT automated)
+_______
+ TC.00:
+		Method Name: tc00_CheckoutOverview_ElementsExist
+		Description: Smoke-Test = CheckoutOverview page is Accessible & Contains the expected UI-elements
+Scenario:
+	0.	Pre-requisites & Context: x
+	1.	x
+	2.	x
+_____________________________________________________________________________________________________________________
+--------------
+  Section 07
+==============
+› Test-scope: Your-Complete-Checkout Page -> UI elements -&- Functionalities of Page Actions
+› Class Name: S07_CompleteCheckoutTests (status: NOT automated)
+_______
+ TC.00:
+		Method Name: tc00_CompleteCheckout_ElementsExist
+		Description: Smoke-Test = CompleteCheckout page is Accessible & Contains the expected UI-elements
+Scenario:
+	0.	Pre-requisites & Context: x
+	1.	x
+	2.	x
+_____________________________________________________________________________________________________________________
+--------------
+  Section 08
+==============
+› Test-scope: Menu -&- Cart components (common for several pages) -> UI elements -&- Functionalities of Components' Actions
+› Class Name: S08_MenuTests (status: Automated)  [note: the cart-icon component, is tested during menu-link 'reset app state' - test 04]
+_______
+ TC.00:
+		Method Name: tc00_Menu_ElementsExist
+		Description: Smoke-Test = Menu (Common Component) is Accessible & Contains the expected UI-elements
+Scenario:
+	0.	Pre-requisites & Context: Launch Browser -&- Navigate to App's URL (done during @BeforeClass)
+	1.	Perform Successful Login with Valid User -&- Validate Test Start-conditions met --> User Redirected to Products-Inventory page !
+	2.	Validate 'Menu' Component UI is in closed-state = Menu button is Visible (but not the close button or menu links)
+	3.	Click the Menu button
+	4.	Validate Menu Component UI is in opened-state = Menu is Showing following UI Elements (but the menu button is hidden not absent)
+		- CloseMenu button
+		- list of 4 links (check also Text correctness):
+		  ALL ITEMS , ABOUT , LOGOUT  -&-  RESET APP STATE (clears cart from added items - will be tested while testing cart indication)
+_______
+ TC.01:
+		Method Name: tc01_Menu_Close
+		Description: Functional-Test = Close Menu
+Scenario:
+	0.	Pre-requisites & Context: Continue from previous TestCase end-point  (URL: Inventory page + Refreshed  &  State: IS Logged-IN !)
+	1.	Click the Menu button (to open)
+	2.	Validate CloseMenu button is Visible (menu opened)
+	3.	Click the CloseMenu button
+	4.	Validate Menu button is Visible -and- that the Menu-Links are NOT Visible! (menu closed)
+_______
+ TC.02:
+		Method Name: tc02_Menu_About
+		Description: Functional-Test = Menu-link About
+Scenario:
+	0.	Pre-requisites & Context: Continue from previous TestCase end-point  (URL: Inventory page + Refreshed  &  State: IS Logged-IN !)
+	1.	Click the Menu button
+	2.	Click the 'About' link
+	3.	Validate Navigation to new URL: https://saucelabs.com
+	4.	Navigate Back (and validate you are in Inventory page, for further tests to continue from)...
+_______
+ TC.03:
+		Method Name: tc03_Menu_Inventory
+		Description: Functional-Test = Menu-link All-Items
+Scenario:
+	0.	Pre-requisites & Context: Continue from previous TestCase end-point  (URL: Inventory page + Refreshed  &  State: IS Logged-IN !)
+	1.	Click first Product-item (to open its details)
+	2.	Verify new-context Item-Details Page opened (check url)
+	3.	Click the Menu button (from the newly opened page)
+	4	Click on 'ALL ITEMS' link (to get back to products inventory page from Menu)
+	5.	Validate context changed back to Products-Inventory page (check url)...
+_______
+ TC.04:
+		Method Name: tc04_Menu_ResetAppClearsCart
+		Description: Functional-Test = Menu-link Reset App, Clears Carts Items  [note: cart-icon component, is tested during this case]
+Scenario:
+	0.	Pre-requisites & Context: Continue from previous TestCase end-point  (URL: Inventory page + Refreshed  &  State: Empty Cart !!)
+	1.	Validate 'Cart' Component UI is in Empty-state = Check Cart button Visible & No Items-Amount Indication
+	2.	Click to Add first Product to Cart (from Inventory page = 'Sauce Labs Backpack')
+	3.	Validate 'Cart' Component UI is in Full-state = Check Cart button Visible & Items-Amount Indication = 1 (just added)
+	4.	Click the Menu button (to open it)
+	5.	Click the 'Reset' link (for clearing Cart from all added Items)
+	6.	Validate 'Cart' Component UI is -Back- in Empty-state = Check Cart button Visible & No Items-Amount Indication = EMPTY!
+	->	Re-check that the 'menu' & 'cart' functions, work properly from another page as well!
+	8.	Click to Add a different Product to Cart (from Inventory page = 'Sauce Labs Onesie')
+	7.	Click on the Cart icon to open the cart-page
+	10.	Validate context changed to Cart page (check url)...
+	11.	Validate 'Cart' Component UI is in Full-state = Check Cart button Visible & Items-Amount Indication = 1 (just added)
+	12.	Click the Menu button (to open it)
+	13.	Click the 'Reset' link (for clearing Cart from all added Items)
+	14.	Validate 'Cart' Component UI is -Back- in Empty-state = Check Cart button Visible & No Items-Amount Indication = EMPTY!
+_______
+ TC.05:
+		Method Name: tc05_Menu_Logout
+		Description: Functional-Test = Menu-link Logout
+Scenario:
+	0.	Pre-requisites & Context: Continue from previous TestCase end-point  (URL: Entrance page + Refreshed  &  State: IS Logged-IN !)
+	1.	Click the Menu button
+	2.	Click the 'Logout' link
+	3.	Validate context changed to Login page (https://www.saucedemo.com) in Default state - User is Logout (using lp.isProperUI)
+
+_____________________________________________________________________________________________________________________
+
+--   END   --
+_____________
+
+
+
+=========
+ TESTING |-> TO SORT & Delete !
+---------
+WebSitePage: https://practicetestautomation.com/practice-test-login/
+
+Test case 1: Positive -> LogIn Succeed
+1.	Open page
+2.	Type into the Username field: 'student'
+3.	Type into the Password field: 'Password123'
+4.	Click on the Submit button
+5.	Verify the new page URL contains: 'practicetestautomation.com/logged-in-successfully'
+6.	Verify the page contain expected: 'Congratulations' or: 'successfully logged in' text
+7.	Verify Log out button is displayed on that page
+NOTE: Steps 5, 6, 7 are verifications, and they do not depend on each other. As a result, we can execute these verifications in any order (in order to execute all three verifications without failing tests, we can use soft assertions instead of hard assertions).
+
+Test case 2: Negative -> LogIn Failure on: invalid password
+1.	Open page
+2.	Type into the Username field: 'student'
+3.	Type into the Password field: 'pass' (incorrect password)
+4.	Click on the Submit button
+5.	Verify an error message is displayed on page
+6.	Verify the error message text is: 'Your password is invalid!'
+________
+Example:
+driver.get("https://practicetestautomation.com/practice-test-login/"); // browse to web page
+// functional operations
+driver.findElement(By.id("username")).sendKeys("student");
+driver.findElement(By.name("password")).sendKeys("Password123");
+driver.findElement(By.cssSelector("button#submit").click();
+
+// 3 consecutive (non-dependent) soft asserts:
+SoftAssert softAssert = new SoftAssert(); // declare & initiate the assert
+
+String expectedUrl = "https://practicetestautomation.com/logged-in-successfully/";
+String actualUrl = driver.getCurrentUrl();
+softAssert.assertEquals(actualUrl, expectedUrl, "Actual page url is not the same as expected"); // compare URL
+
+WebElement successMessage = driver.findElement(By.tagName("strong"));
+String expectedMessage = "Congratulations. You successfully logged in!";
+String actualMessage = successMessage.getText(); // compare MSG
+softAssert.assertTrue(actualMessage.contains(expectedMessage), "Actual: "+ actualMessage +" don't contain Expected: "+ expectedMessage);
+
+WebElement logOutButton = driver.findElement(By.linkText("Log out"));
+softAssert.assertTrue(logOutButton.isDisplayed(), "Log Out button is not visible"); // check viability
+
+softAssert.assertAll(); // ask to actually assert them
+
+____________
+WebSitePage: https://practicetestautomation.com/practice-test-exceptions/
+
+Test case 1: UI Text on Start condition
+1.	Open page
+2.	Verify page contains expected: 'Create list of your favorite foods' and: 'Push "Add" button to add another row' text
+3.	Verify Row 1 contain expected: 'Pizza'
+
+
+Test case 2: Add
+1.	Open page
+2.	Verify Edit & Add buttons are displayed
+3.	Click Add button (and Wait for 3 seconds)
+NOTE: Row 2 doesn’t appear immediately -> without proper wait, test will fail with org.openqa.selenium.NoSuchElementException !
+4.	Verify the feedback message text is: 'Row 2 was added'
+5.	Verify the feedback message disappears after several seconds
+6.	Verify Row 2 input field is displayed
+7.	Verify Save & Remove buttons are displayed
+8.	Verify Edit & Add buttons are NOT displayed
+9.	Verify page changed and now still contains: 'Create list of your favorite foods' ->
+10.	but do not contain: 'Push "Add" button to add another row'
+
+Can Test Also:
+Type text into the input field, Clear input field, Re-Type text into the input field, Save, Remove etc...
+___________
+--  END  --

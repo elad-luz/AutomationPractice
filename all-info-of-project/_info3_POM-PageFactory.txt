@@ -1,0 +1,75 @@
+=====================================
+ Page Object Model (POM) PageFactory
+-------------------------------------
+POM is the design pattern we use to code our test automation, which creates Object Repository for web UI elements.
+Each logical Web-Page (or UI-component) will get its own Page class that contains:
+- Elements found.byLocator -> See PageFactory below !!!
+- Operation Methods done on those Elements
+- Verification Methods (for success\failure) -> To be used later-on by the Test performed in relevant Test class !
+There would be 2 different packages - one to hold Pages (BasePage + PageObjects), the other for Testing each Page!
+IN: company.module.pageobjects we locate the needed elements, and wrapping them under functionality methods!
+ 	BasePage wrapping Selenium operations methods, to be used by all the classes (which would inherit it)...
+ 	Pages classes - each will have distinguished name, that uniquely identify it in system, and will contain
+ 	 - declare & init the elements on page (using locators) - we can easily add-to as we go along, as needed
+ 	 - exposed action methods (wrapping & making use of the elements as needed), that would be used in tests
+ 	 - exposed validation methods that would be used in tests - to assist with verification if parts passing
+ 	 note that each page will need a variable to allow working: WebDriver driver; - which would be inherited
+
+PageFactory: 
+Page Factory is the way we write great code for locating & dealing with the elements, which makes life much easy !
+The class provided by Selenium WebDriver, supports use of @FindBy & initElements method (for locate & initialize).
+It mainly let us deal with locating an element once -and- make use of it, as many times we need in our code.
+The elements located using PageFactory is done only upon usage within page, when needed - produce more stability !
+
+Advantages:
+- Makes code maintainable -
+	Reduction of code duplication and thus improvement of maintenance!
+	Since the element is located separate from the use of it in Methods, updating the code (change & add) is easy!
+- Makes code reusable -
+	For multiple methods using same web-elements, no need to code for same element in every method.
+- Makes code readable (and more easy to write) -
+	All that makes it easy to write & Others can also easily read through the project and test scripts:
+	clean separation between the locator elements and their use in code.
+	single place for locators and operations (rather than all scattered throughout the Page class).
+
+--> NOTE: because we want to propagate PageFactory up to all our Pages, best thing is to use 'BasePage' for this !
+------------------------------------------------------------------------------------------------------------------
+
+Order of action we would do:
+1.	understand ...
+2.	add ...
+3.	add ...
+_____________________________________________________
+- https://www.testim.io/blog/page-factory-in-selenium
+- https://www.browserstack.com/guide/page-object-model-in-selenium
+- https://www.toolsqa.com/selenium-webdriver/page-factory-in-selenium
+- https://www.guru99.com/page-object-model-pom-page-factory-in-selenium-ultimate-guide.html
+
+Summary:
+Page Component  ->  needs: import org.openqa.selenium.support.PageFactory;
+@FindBy	 use annotation to find by locator :
+		@FindBy(css=#id > .class)
+@FindBys use annotation to find by several locators (matching all = AND) :
+		@FindBys({@FindBy(css=#id > .class1), @FindBy(css=#id > .class2)})
+		List<WebElement> list;
+@FindAll use annotation to find by several locators (matching some = OR) :
+		@FindAll({@FindBy(css=#id > .class1) ,@FindBy(css=#id > .class2)})
+		List<WebElement> list;
+initElements (method used in constructor of BasePage)
+	public constructor (WebDriver driver){
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+
+NOTE - the options of locators for @FindBy are slightly different than for driver.findElement(By...);
+The @FindBy refers to the WebElement below it.
+
+WebElement userName = driver.findElement(By.cssSelector("#user_name"));  ==>  converts to:
+	@FindBy(css="#user_name")
+	WebElement userName;
+
+	______________
+	Example below:
+	How to?
+We will be working with ...
+___________
+--  END  --

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Practice Suite">
+	<test thread-count="5" name="Test Basics 1">
+		<!-- Add the Parameter (passed to base-test) to determine which Browser you wish to Run on -->
+        <parameter name="browser" value="Firefox"/>
+		<classes>
+			<!-- Add the Class (test) you wish to Run -->
+			<class name="tempSite.testcases.TempTBD" />
+		</classes>
+	</test> <!-- Test -->
+</suite> <!-- Suite -->

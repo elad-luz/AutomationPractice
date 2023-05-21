@@ -1,0 +1,10 @@
+-------------
+ Temp -> TBD
+=============
+
+groupId -> elad.luz.automation
+artifactId -> SeleniumWithMavenProject
+
+
+___________
+--  END  --

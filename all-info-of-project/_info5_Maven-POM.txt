@@ -1,0 +1,35 @@
+================================
+ Page Object Model (POM) TestNG
+--------------------------------
+
+Maven POM
+A Project Object Model or POM is the fundamental unit of work in Maven.
+It is an XML file that contains information about the project and configuration details used by Maven to build the project.
+It contains default values for most projects.
+
+NOTE -> You need to work on the Package code classes, not in the src folder
+
+RUN EXAMPLE:
+------------
+from project path, via cmd run maven: mvn clean test
+suiteXmlFile (in pom.xml), states which testNG file to use for the Run!
+
+open CMD -> get to the project folder -> issue run command  (with clean):
+C:\Users\USER>cd C:\Users\USER\eclipse-workspace\SeleniumWithMavenProject
+C:\Users\USER\eclipse-workspace\SeleniumWithMavenProject>mvn clean test
+
+Note:
+if you use params in testNG.xml <parameter name=""baseUrl" value="https://www.saucedemo.com/" />
+and you want to run a specific test class, via maven (bypassing the testNG.xml), you'll need to:
+put the param in the pom xml under <systemPropertyVariables>
+<baseUrl>https://www.saucedemo.com/</baseUrl>
+Using Property Param via mvn pom.xml (instead of via testng.xml) is not relevant in my case --
+Because I am using a dedicated properties file (residing in resources) !!!
+
+
+pom.xml EXAMPLE: see in root of project !
+
+
+
+___________
+--  END  --
