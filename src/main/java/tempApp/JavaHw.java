@@ -18,5 +18,5 @@ public class JavaHw {
 RUN via MVN from Project folder -> in this case <project> is: 'AutomationPractice':
 Open CMD (C:\Windows\System32\cmd.exe) at Project root (C:\Users\USER\eclipse-workspace\<project>)
 issue command:
-mvn exec:java -Dexec.mainClass="tempApp.MyApp"
+mvn exec:java -Dexec.mainClass="tempApp.JavaHw"
 */
