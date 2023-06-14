@@ -9,7 +9,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class App_01 {
+public class Selenium2 {
 	/*  See also: o_selenium.basics -> K_SeleniumYouTubeTask for another of this kind...
 		Perform these steps (in Selenium Java):
 		1. set & init ChromeDriver & open chrome in maximum size
