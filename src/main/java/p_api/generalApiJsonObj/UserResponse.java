@@ -1,4 +1,4 @@
-package p_generalApi;
+package p_api.generalApiJsonObj;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;

@@ -1,4 +1,4 @@
-package p_generalApi;
+package p_api.generalApiJsonObj;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;

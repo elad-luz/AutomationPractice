@@ -1,4 +1,4 @@
-package p_anyApiTest;
+package p_api.anyApiTestClient;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
